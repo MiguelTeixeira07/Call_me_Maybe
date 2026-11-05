@@ -1,7 +1,7 @@
 from .parser import *
 
 
-def main():
+def main() -> None:
     argParser: ArgumentParser = ArgumentParser()
     args: Args = argParser.get_args()
 
@@ -11,7 +11,7 @@ def main():
         args.output_file,
         sep='\n'
     )
-
+    print()
     functionParser: FuncDefParser = FuncDefParser(filename=args.func_def_file)
     promptParser: InputFileParser = InputFileParser(filename=args.input_file)
 
@@ -25,7 +25,7 @@ def main():
 
 
 if __name__ == '__main__':
-#    try:
+    #try:
     main()
-#    except BaseException as e:
-#        print(e)
+    #except BaseException as e:
+        #print(e)

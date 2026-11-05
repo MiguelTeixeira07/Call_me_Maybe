@@ -8,7 +8,8 @@ dependencies = [
     "transformers>=4.40.0",
     "huggingface-hub>=0.20.0",
     "pydantic>=2.14.2",
-    "colorama>=0.4.6"
+    "colorama>=0.4.6",
+    "jsonschema>=4.26.0"
 ]
 
 [build-system]

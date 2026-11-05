@@ -1,5 +1,6 @@
 import sys
 import json
+import jsonschema
 from argparse import ArgumentParser as ArgParser, ArgumentError
 from typing import Any, Literal
 from pydantic import BaseModel, model_validator, ConfigDict, Field
@@ -11,6 +12,7 @@ __all__ = [
     'ArgParser', 'ArgumentError',
     'sys',
     'json',
+    'jsonschema',
     'Any', 'Literal',
     'BaseModel', 'model_validator', 'ConfigDict', 'Field',
     'Fore',

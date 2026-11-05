@@ -1,10 +1,10 @@
-from .exceptions import ParsingError, ArgumentParseError
+from .exceptions import ParsingError, ArgumentParseError, SchemaError
 from .parser import ArgumentParser, InputFileParser, FuncDefParser
 from .models import Args, FuncDefData
 
 
 __all__ = [
-    'ParsingError', 'ArgumentParseError',
+    'ParsingError', 'ArgumentParseError', 'SchemaError',
     'ArgumentParser', 'InputFileParser', 'FuncDefParser',
     'Args', 'FuncDefData'
 ]

@@ -1,5 +1,5 @@
 from .imports import *
-from .exceptions import ParsingError
+from .exceptions import ParsingError, SchemaError
 from .models import Args, FuncDefData
 
 
@@ -96,7 +96,14 @@ class JsonParser(BaseModel, ABC):
 class InputFileParser(JsonParser):
     def validate_file(self) -> bool:
         """Validates JSON file using a JSON schema."""
-        ...
+        try:
+            with open('src/parser/prompt_schema.json') as schema:
+                jsonschema.validate(
+                    instance=self.data,
+                    schema=json.load(schema)
+                )
+        except jsonschema.ValidationError as e:
+            raise SchemaError(e)
 
     def get_data(self) -> list[str]:
         """Transforms the dictionary with the JSON data into the desired data
@@ -110,7 +117,12 @@ class InputFileParser(JsonParser):
 
 class FuncDefParser(JsonParser):
     def validate_file(self) -> bool:
-        ...
+        """Validates JSON file using a JSON schema."""
+        with open('src/parser/function_definition_schema.json') as schema:
+            jsonschema.validate(
+                instance=self.data,
+                schema=json.load(schema)
+            )
 
     def get_data(self) -> list[FuncDefData]:
         """Transforms the dictionary with the JSON data into the desired data

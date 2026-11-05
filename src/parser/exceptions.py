@@ -9,3 +9,7 @@ class ParsingError(Exception):
 class ArgumentParseError(ParsingError):
     def __init__(self, msg):
         super().__init__(msg)
+
+class SchemaError(ParsingError):
+    def __init__(self, msg):
+        super().__init__(msg)
