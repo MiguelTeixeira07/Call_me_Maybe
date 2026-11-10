@@ -1,4 +1,4 @@
-from .imports import model_validator, BaseModel, ConfigDict, Literal
+from .imports import *
 from .exceptions import ArgumentParseError
 
 
@@ -27,5 +27,13 @@ class FuncDefData(BaseModel):
     description: str
     parameters: dict[str, Types]
     returns: Types
+    tokens: list[int] = Field(default=[])
 
     model_config = ConfigDict(extra='forbid', arbitrary_types_allowed=True)
+
+    @field_validator('name', mode='after')
+    @classmethod
+    def name_validator(cls, value: str) -> str:
+        if not value.startswith('fn_'):
+            raise ValueError('Function name must start with "fn_"')
+        return value

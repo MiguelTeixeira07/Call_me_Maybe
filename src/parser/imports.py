@@ -3,7 +3,7 @@ import json
 import jsonschema
 from argparse import ArgumentParser as ArgParser, ArgumentError
 from typing import Any, Literal
-from pydantic import BaseModel, model_validator, ConfigDict, Field
+from pydantic import BaseModel, model_validator, field_validator, ConfigDict, Field
 from colorama import Fore
 from abc import ABC, abstractmethod
 
@@ -14,7 +14,7 @@ __all__ = [
     'json',
     'jsonschema',
     'Any', 'Literal',
-    'BaseModel', 'model_validator', 'ConfigDict', 'Field',
+    'BaseModel', 'model_validator', 'field_validator', 'ConfigDict', 'Field',
     'Fore',
     'ABC', 'abstractmethod'
 ]
