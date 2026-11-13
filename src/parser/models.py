@@ -1,4 +1,4 @@
-from typing import Literal, TextIO
+from typing import Literal
 from pydantic import (
     BaseModel,
     model_validator,
@@ -41,13 +41,16 @@ class Args(BaseModel):
 
         for file in [self.func_def_file, self.input_file, self.output_file]:
             try:
-                fd: TextIO = open(file)
+                if file == self.output_file:
+                    fd = open(file, 'w')
+                else:
+                    fd = open(file)
             except PermissionError:
                 raise ArgumentParseError(
                     f'Not enough permissions to "{file}"'
                 )
             except FileNotFoundError:
-                raise ArgumentParseError(f'File "{file}" does not exist')
+                raise ArgumentParseError(f'Path to file "{file}" is not valid')
             finally:
                 fd.close()
 
