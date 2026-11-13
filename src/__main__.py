@@ -1,6 +1,5 @@
 from .parser import *
 from .generator import *
-from llm_sdk.llm_sdk import Small_LLM_Model
 
 
 def main() -> None:
@@ -16,9 +15,9 @@ def main() -> None:
     promptParser.validate_file()
     prompts: list[str] = promptParser.get_data()
 
-    generator: LLM = LLM()
+    output_content: list[Func] = FunctionCaller.run(functions, prompts)
 
-    generator.main(functions, prompts)
+    Utils.write_json_output(output_content, args.output_file)
 
 
 if __name__ == '__main__':
