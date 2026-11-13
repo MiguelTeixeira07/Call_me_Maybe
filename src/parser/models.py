@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Literal, TextIO
 from pydantic import (
     BaseModel,
     model_validator,
@@ -38,6 +38,18 @@ class Args(BaseModel):
             self.input_file
         ] if len(s) > 4 and not s.endswith('.json')):
             raise ArgumentParseError('All input files must be json files')
+
+        for file in [self.func_def_file, self.input_file, self.output_file]:
+            try:
+                fd: TextIO = open(file)
+            except PermissionError:
+                raise ArgumentParseError(
+                    f'Not enough permissions to "{file}"'
+                )
+            except FileNotFoundError:
+                raise ArgumentParseError(f'File "{file}" does not exist')
+            finally:
+                fd.close()
 
         return self
 

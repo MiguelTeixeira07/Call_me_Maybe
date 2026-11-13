@@ -9,7 +9,9 @@ dependencies = [
     "huggingface-hub>=0.20.0",
     "pydantic>=2.14.2",
     "colorama>=0.4.6",
-    "jsonschema>=4.26.0"
+    "types-colorama>=0.4.15",
+    "jsonschema>=4.26.0",
+    "types-jsonschema>=4.26.0"
 ]
 
 [build-system]

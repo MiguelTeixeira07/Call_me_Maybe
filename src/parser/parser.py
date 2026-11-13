@@ -115,7 +115,7 @@ class InputFileParser(JsonParser):
                 )
                 return True
         except jsonschema.ValidationError as e:
-            raise SchemaError(e)
+            raise SchemaError(str(e))
 
         return False
 
@@ -146,7 +146,7 @@ class FuncDefParser(JsonParser):
                 )
                 return True
         except jsonschema.ValidationError as e:
-            raise SchemaError(e)
+            raise SchemaError(str(e))
 
         return False
 

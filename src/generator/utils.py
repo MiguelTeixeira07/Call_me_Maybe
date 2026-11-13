@@ -205,7 +205,8 @@ class Utils:
             file_content += f'\t\t"name": "{func.name}",\n'
             file_content += '\t\t"parameters": {' + ', '.join(
                 [
-                    f'"{name}": ' + (str(val) if isinstance(val, float) else f'"{val}"')
+                    f'"{name}": ' +
+                    (str(val) if isinstance(val, float) else f'"{val}"')
                     for name, val in func.params.items()
                 ]
             ) + '}\n'

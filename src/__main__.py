@@ -27,7 +27,7 @@ def main() -> None:
 
 
 if __name__ == '__main__':
-    #try:
-    main()
-    #except BaseException as e:
-        #print(e)
+    try:
+        main()
+    except BaseException as e:
+        print(e)
