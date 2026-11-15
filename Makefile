@@ -5,24 +5,21 @@ PROMPTS := data/input/function_calling_tests.json
 OUTPUT := data/output/function_calling_results.json
 
 
-export UV_PROJECT_ENVIRONMENT := .venv
-
 install:
-	python3 -m venv .venv
-	$(VENV)python -m pip install uv
-	$(VENV)uv sync
+	test -d .venv || uv venv .venv
+	uv sync
 	mkdir -p data/output
 
 
 run: install
-	$(VENV)uv run python3 -m src \
+	uv run python3 -m src \
 	--functions_definition $(FUNC_DEF) \
 	--input $(PROMPTS) \
 	--output $(OUTPUT)
 
 
 debug: install
-	$(VENV_PY) -m pdb -m src \
+	$(VENV)python -m pdb -m src \
 	--functions_definition $(FUNC_DEF) \
 	--input $(PROMPTS) \
 	--output $(OUTPUT)
