@@ -93,7 +93,7 @@ class Utils:
             list[str]: Formatted prompts.
         """
         return [
-            prompt.lower().rstrip('.').strip()
+            prompt.lower().strip('.').strip()
             for prompt in prompts
         ]
 
@@ -199,18 +199,18 @@ class Utils:
         file_content: str = '['
 
         for func in functions:
-            file_content += '\n\t{\n'
-            file_content += '\t\t"prompt": "' + \
+            file_content += '\n  {\n'
+            file_content += '    "prompt": "' + \
                 func.prompt.replace('"', '\\"') + '",\n'
-            file_content += f'\t\t"name": "{func.name}",\n'
-            file_content += '\t\t"parameters": {' + ', '.join(
+            file_content += f'    "name": "{func.name}",\n'
+            file_content += '    "parameters": {' + ', '.join(
                 [
                     f'"{name}": ' +
-                    (str(val) if isinstance(val, float) else f'"{val}"')
+                    (str(float(val)) if val.isnumeric() else f'"{val}"')
                     for name, val in func.params.items()
                 ]
             ) + '}\n'
-            file_content += '\t},'
+            file_content += '  },'
         file_content = file_content[:-1]
         file_content += '\n]'
 

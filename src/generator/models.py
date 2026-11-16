@@ -12,4 +12,4 @@ class Func(BaseModel):
     """
     prompt: str
     name: str
-    params: dict[str, float | str]
+    params: dict[str, str]

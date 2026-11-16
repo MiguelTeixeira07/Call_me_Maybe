@@ -1,0 +1,57 @@
+[
+  {
+    "prompt": "what is the sum of 2 and 3?",
+    "name": "fn_add_numbers",
+    "parameters": {"a": 2.0, "b": 3.0}
+  },
+  {
+    "prompt": "what is the sum of 265 and 345?",
+    "name": "fn_add_numbers",
+    "parameters": {"a": 265.0, "b": 345.0}
+  },
+  {
+    "prompt": "greet shrek",
+    "name": "fn_greet",
+    "parameters": {"name": "Shrek"}
+  },
+  {
+    "prompt": "greet john",
+    "name": "fn_greet",
+    "parameters": {"name": "john"}
+  },
+  {
+    "prompt": "reverse the string 'hello'",
+    "name": "fn_reverse_string",
+    "parameters": {"s": "hello"}
+  },
+  {
+    "prompt": "reverse the string 'world'",
+    "name": "fn_reverse_string",
+    "parameters": {"s": "world"}
+  },
+  {
+    "prompt": "what is the square root of 16?",
+    "name": "fn_get_square_root",
+    "parameters": {"a": 16.0}
+  },
+  {
+    "prompt": "calculate the square root of 144",
+    "name": "fn_get_square_root",
+    "parameters": {"a": 144.0}
+  },
+  {
+    "prompt": "replace all numbers in \"hello 34 i'm 233 years old\" with numbers",
+    "name": "fn_substitute_string_with_regex",
+    "parameters": {"source_string": "hello 34 i'm 233 years old", "regex": "34 233", "replacement": "34 233"}
+  },
+  {
+    "prompt": "replace all vowels in 'programming is fun' with asterisks",
+    "name": "fn_substitute_string_with_regex",
+    "parameters": {"source_string": "programming is fun", "regex": "a|e|i|o|u", "replacement": "****"}
+  },
+  {
+    "prompt": "substitute the word 'cat' with 'dog' in 'the cat sat on the mat with another cat'",
+    "name": "fn_substitute_string_with_regex",
+    "parameters": {"source_string": "the cat sat on the mat with another cat", "regex": "cat", "replacement": "dog"}
+  }
+]

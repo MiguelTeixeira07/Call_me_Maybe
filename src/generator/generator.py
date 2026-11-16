@@ -28,14 +28,17 @@ class FunctionCaller:
         """
         model: Small_LLM_Model = Small_LLM_Model()
 
+        unformatted_prompts: str = prompts
         prompts = Utils.format_prompts(prompts)
 
+        print("=== Generating Functions ===\n")
         chosen_funcs: list[str] = FunctionCaller.get_chosen_functions(
             prompts,
             model,
             functions
         )
 
+        print("=== Generating Parameters ===\n")
         funcs: list[Func] = FunctionCaller.get_prompts(
             functions,
             chosen_funcs,
@@ -76,6 +79,8 @@ class FunctionCaller:
         )
 
         for prompt in prompts:
+            print(f'prompt: "{prompt}"')
+
             prompt = context + prompt + follow_up
             input_ids: list[int] = model.encode(prompt).tolist()[0]
 
@@ -93,6 +98,7 @@ class FunctionCaller:
                     )
                 ).replace(' ', '_')
             )
+            print(f'Chosen function: "{answers[-1]}"\n')
 
         return answers
 
@@ -123,9 +129,12 @@ class FunctionCaller:
         output: list[Func] = []
         answers: list[str] = []
         context: str = ''
+        ans: str
         input_ids: list[int] = []
 
         for func_name, prompt in zip(chosen_funcs, prompts):
+            print(f'Prompt: "{prompt}"')
+            print(f'Function: "{func_name}"')
             chosen_func: FuncDefData = next(
                 func for func in functions if func_name == func.name
             )
@@ -142,15 +151,20 @@ class FunctionCaller:
                     input_ids,
                     model
                 )
-                answers.append(model.decode(answer))
+                ans = model.decode(answer)
+                ans = ans[:ans.index('"')]
+                answers.append(ans)
+
+                print(f'\tParam "{param}": "{ans}"')
 
             output.append(Func(
                 prompt=prompt,
                 name=chosen_func.name,
-                params={name: ans[:ans.index('"')] for name, ans in zip(
+                params={name: a for name, a in zip(
                     chosen_func.parameters.keys(),
                     answers
                 )}
             ))
+            print()
 
         return output

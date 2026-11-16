@@ -29,7 +29,6 @@ clean:
 	rm -rf __pycache__ .mypy_cache .pytest_cache .ruff_cache .venv data/output
 	find . -type d -name '__pycache__' -prune -exec rm -rf {} +
 	find . -type f -name '*.pyc' -delete
-	rm -f uv.lock
 
 
 lint: install
