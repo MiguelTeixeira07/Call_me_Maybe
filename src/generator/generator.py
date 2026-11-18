@@ -28,7 +28,7 @@ class FunctionCaller:
         """
         model: Small_LLM_Model = Small_LLM_Model()
 
-        unformatted_prompts: str = prompts
+        unformatted_prompts: list[str] = prompts
         prompts = Utils.format_prompts(prompts)
 
         print("=== Generating Functions ===\n")
