@@ -39,11 +39,12 @@ class FunctionCaller:
         )
 
         print("=== Generating Parameters ===\n")
-        funcs: list[Func] = FunctionCaller.get_prompts(
+        funcs: list[Func] = FunctionCaller.get_params(
             functions,
             chosen_funcs,
             prompts,
-            model
+            model,
+            unformatted_prompts
         )
 
         return funcs
@@ -103,11 +104,12 @@ class FunctionCaller:
         return answers
 
     @staticmethod
-    def get_prompts(
+    def get_params(
         functions: list[FuncDefData],
         chosen_funcs: list[str],
         prompts: list[str],
-        model: Small_LLM_Model
+        model: Small_LLM_Model,
+        unformatted_prompts: list[str]
     ) -> list[Func]:
         """Generates the parameter values for every chosen function.
 
@@ -132,12 +134,22 @@ class FunctionCaller:
         ans: str
         input_ids: list[int] = []
 
-        for func_name, prompt in zip(chosen_funcs, prompts):
-            print(f'Prompt: "{prompt}"')
-            print(f'Function: "{func_name}"')
+        for func_name, prompt, u_prompt in zip(
+            chosen_funcs,
+            prompts,
+            unformatted_prompts
+        ):
             chosen_func: FuncDefData = next(
                 func for func in functions if func_name == func.name
             )
+            if any(
+                t.type == 'string' for t in chosen_func.parameters.values()
+            ):
+                prompt = u_prompt
+
+            print(f'Prompt: "{prompt}"')
+            print(f'Function: "{func_name}"')
+
             context = Utils.build_param_context(chosen_func)
             input_ids = model.encode(
                 context +
@@ -158,7 +170,7 @@ class FunctionCaller:
                 print(f'\tParam "{param}": "{ans}"')
 
             output.append(Func(
-                prompt=prompt,
+                prompt=u_prompt,
                 name=chosen_func.name,
                 params={name: a for name, a in zip(
                     chosen_func.parameters.keys(),

@@ -174,7 +174,11 @@ class Utils:
         Returns:
             str: Context text describing the function and its parameters.
         """
-        context: str = chosen_func.name + ':\n'
+        context: str = ''
+
+        with open('src/generator/param_context.txt') as fd:
+            context += fd.read()
+        context += chosen_func.name + ':\n'
         context += 'description: ' + chosen_func.description + '\n'
         context += 'parameters:\n'
         for name, type in chosen_func.parameters.items():
@@ -203,13 +207,9 @@ class Utils:
             file_content += '    "prompt": "' + \
                 func.prompt.replace('"', '\\"') + '",\n'
             file_content += f'    "name": "{func.name}",\n'
-            file_content += '    "parameters": {' + ', '.join(
-                [
-                    f'"{name}": ' +
-                    (str(float(val)) if val.isnumeric() else f'"{val}"')
-                    for name, val in func.params.items()
-                ]
-            ) + '}\n'
+            file_content += '    "parameters": {' + ', '.join([
+                f'"{name}": ' + val for name, val in func.params.items()
+            ]) + '}\n'
             file_content += '  },'
         file_content = file_content[:-1]
         file_content += '\n]'

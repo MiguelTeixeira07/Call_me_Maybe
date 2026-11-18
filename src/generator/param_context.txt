@@ -1,0 +1,9 @@
+When generating function arguments:
+
+- Understand the intended meaning of each requested value.
+- When the user requests a regular expression, generate a syntactically
+  valid regex that matches the described pattern.
+- Do not substitute a natural-language description for a requested
+  expression or pattern.
+- Pay attention to escaping, quantifiers, character classes and anchors.
+- Do not modify values unnecessarily.

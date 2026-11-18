@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, model_validator
 
 
 class Func(BaseModel):
@@ -13,3 +13,16 @@ class Func(BaseModel):
     prompt: str
     name: str
     params: dict[str, str]
+
+    @model_validator(mode='after')
+    def param_formatter(self) -> 'Func':
+        for key, param in self.params.items():
+            param = param.replace('\\', '\\\\')
+            self.params[key] = param
+
+            if param.isnumeric():
+                self.params[key] = str(float(param))
+            else:
+                self.params[key] = f'"{param}"'
+
+        return self
